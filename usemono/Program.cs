@@ -34,7 +34,11 @@ namespace usemono
 
         public NancyApp(string uri)
         {
-            _host = new NancyHost(new Uri(uri));
+            if (string.IsNullOrWhiteSpace(uri))
+                throw new ArgumentNullException("uri");
+
+            _host = new NancyHost(new Uri(uri), new Uri(uri.Replace("http:", "https:")));
+
         }
 
         public void Start()
